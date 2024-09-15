@@ -25,13 +25,29 @@ class Viewer {
     this.gui = new dat.GUI();
 
     // Parameters
-    this.params = JSON.parse(
-      document.getElementById('vscode-3dviewer-data').getAttribute('data-settings')
-    );
-    this.params.gridHelper = {
-      size: 2000,
-      unit: 1
+    const savedParams = JSON.parse(localStorage.getItem('viewerParams'));
+    this.params = savedParams || {
+      gridHelper: {
+        size: 2000,
+        unit: 1
+      },
+      pointSize: 10, // 默认值
+      showPoints: true,
+      pointColor: '#ffffff',
+      showWireframe: false,
+      wireframeColor: '#ffffff',
+      showMesh: true,
+      backgroundColor: '#000000',
+      fogDensity: 0.1,
+      hideControlsOnStart: false
     };
+    // this.params = JSON.parse(
+    //   document.getElementById('vscode-3dviewer-data').getAttribute('data-settings')
+    // );
+    // this.params.gridHelper = {
+    //   size: 2000,
+    //   unit: 1
+    // };
 
     // GUI
     this.initRenderer();
@@ -50,7 +66,9 @@ class Viewer {
   initGui() {
     // geometry based parameter update
     const extent = getBBoxMaxExtent(this.points.geometry);
-    this.params.pointSize = extent / 100.0;
+    // this.params.pointSize = extent / 100.0;
+    this.params.pointSize = this.params.pointSize || extent / 100.0;
+
     this.params.pointMaxSize = extent / 10.0;
 
     this.params.gridHelper.unit = Math.pow(10, Math.floor(Math.log10(extent)));
@@ -89,6 +107,9 @@ class Viewer {
       .name('size');
     folder.add(this.params.gridHelper, 'unit')
       .name('unit');
+  }
+  saveParams() {
+    localStorage.setItem('viewerParams', JSON.stringify(this.params));
   }
 
   initRenderer() {

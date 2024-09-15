@@ -28,6 +28,7 @@ function createModelLoader(fileToLoad) {
     case 'xyz': return new THREE.XYZLoader();
     case 'pcd': return new THREE.PCDLoader();
     case 'off': return new THREE.OFFLoader();
+    case 'npy': return new THREE.NPYLoader();
     default: return new THREE.OBJLoader();
   }
 }

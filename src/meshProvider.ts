@@ -124,6 +124,7 @@ export class MeshViewProvider implements vscode.CustomReadonlyEditorProvider<Mes
       this.getMediaWebviewUri(webview, 'three/loaders/XYZLoader.js'),
       this.getMediaWebviewUri(webview, 'three/loaders/PCDLoader.js'),
       this.getMediaWebviewUri(webview, 'three/loaders/PLYLoader.js'),
+      this.getMediaWebviewUri(webview, 'three/loaders/NPYLoader.js'),
       this.getMediaWebviewUri(webview, 'utils.js'),
       this.getMediaWebviewUri(webview, 'viewer.js'),
     ];
